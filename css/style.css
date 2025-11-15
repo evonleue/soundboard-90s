@@ -1,0 +1,93 @@
+/* ==================================================
+   style.css - Full replacement
+   White background behind buttons
+   Bevel fixed size, buttons scale properly
+   Balanced hover shadow
+   ================================================== */
+
+/* Body and basic styling */
+body {
+  margin: 0;
+  background: #ffffff;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+/* Title */
+#title-wrapper {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+#title-image {
+  display: block;
+  width: 100%;
+  max-width: 1800px;
+  height: auto;
+}
+
+/* Grid wrapper with white background */
+#grid-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1800px;
+  aspect-ratio: 2 / 1;      /* maintains 1800 x 900 proportion */
+  margin: 0 auto;
+  background-color: #ffffff; /* solid white background */
+}
+
+/* Buttons with fixed-size 90s bevel */
+.button {
+  position: absolute;
+  width: 16.6667%;
+  height: 33.3333%;
+  padding: 4px;          /* fixed-size bevel */
+  box-sizing: border-box;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+
+  /* fixed-size 90s bevel using inset shadows */
+  box-shadow:
+      inset 2px 2px 4px rgba(255,255,255,0.5),  /* top-left highlight */
+      inset -2px -2px 4px rgba(0,0,0,0.3);      /* bottom-right shadow */
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  z-index: 10; /* ensure hovered button appears above others */
+
+  /* Balanced hover shadow */
+  box-shadow:
+      inset 2px 2px 3px rgba(255,255,255,0.4),
+      inset -2px -2px 3px rgba(0,0,0,0.25),
+      -4px 8px 16px rgba(0,0,0,0.4); /* adjusted for more even left/bottom shadow */
+}
+
+.button img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 2px; /* leaves space for parent bevel */
+}
+
+/* Optional bevel overlay (subtle) */
+.bevel-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: 6px;
+  background: linear-gradient(145deg,
+              rgba(255,255,255,0.1) 0%,
+              rgba(0,0,0,0.1) 100%);
+}
+
+/* Mobile tap feedback */
+.button:active {
+  transform: scale(0.95);
+}
