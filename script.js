@@ -1,15 +1,37 @@
-// Global currently playing audio
-let currentAudio = null;
+// script.js — Full rewrite for audio toggle behavior
 
-// Play a clip, stopping any currently playing audio
+// Single audio player for all clips
+const audioPlayer = new Audio();
+let currentClip = null;
+
+/**
+ * Play, stop, or switch audio clip depending on user interaction
+ * @param {string} filename - The filename of the clip (without extension)
+ */
 function playClip(filename) {
-  // Stop current audio if exists
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-  }
-
-  // Create new Audio instance for this clip
-  currentAudio = new Audio(`audio/${filename}.mp3`);
-  currentAudio.play().catch(err => console.warn(`Failed to play ${filename}:`, err));
+    // Case 1: same clip clicked
+    if (currentClip === filename) {
+        if (!audioPlayer.paused) {
+            // Stop the clip
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0; // optional: reset to start
+        } else {
+            // Resume if paused (optional: play from start)
+            audioPlayer.currentTime = 0;
+            audioPlayer.play();
+        }
+    } 
+    // Case 2: new clip clicked
+    else {
+        // Stop any current clip
+        if (!audioPlayer.paused) {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+        }
+        // Load and play new clip
+        audioPlayer.src = `audio/${filename}.mp3`;
+        audioPlayer.currentTime = 0;
+        audioPlayer.play();
+        currentClip = filename;
+    }
 }
